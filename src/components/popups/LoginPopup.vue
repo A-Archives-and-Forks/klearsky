@@ -11,15 +11,18 @@ defineExpose({
   setHasAuthFactorToken,
 })
 
-const emit = defineEmits<{(
-  event: string,
-  service: string,
-  email: string,
-  identifier: string,
-  password: string,
-  authFactorToken?: string,
-  inviteCode?: string
-): void}>()
+const emit = defineEmits<{
+  (
+    event: "login" | "signUp",
+    service: string,
+    email: string,
+    identifier: string,
+    password: string,
+    authFactorToken?: string,
+    inviteCode?: string
+  ): void
+  (event: "oauthLogin"): void
+}>()
 
 const $t = inject("$t") as Function
 
@@ -186,6 +189,10 @@ function submitCallback () {
     state.inviteCode
   )
 }
+
+function oauthLogin () {
+  emit("oauthLogin")
+}
 </script>
 
 <template>
@@ -238,6 +245,16 @@ function submitCallback () {
               class="button--important"
             >
               <span>{{ $t("signUp") }}</span>
+            </button>
+
+            <!-- OAuthサインインボタン -->
+            <button
+              v-if="!state.isSignUp"
+              type="button"
+              class="button--bordered"
+              @click.prevent="oauthLogin"
+            >
+              <span>{{ $t("loginWithOAuth") }}</span>
             </button>
 
             <hr />

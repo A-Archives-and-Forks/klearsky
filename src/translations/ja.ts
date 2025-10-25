@@ -59,6 +59,7 @@ export default () => ({
   // AUTHENTICATION & LOGIN
   // ============================================================================
   "login": "ログイン",
+  "loginWithOAuth": "OAuthでログイン",
   "service": "ホスティングプロバイダー",
   "identifier": "メールアドレス／ハンドル／DID",
   "password": "パスワード／アプリパスワード",

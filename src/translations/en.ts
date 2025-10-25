@@ -59,6 +59,7 @@ export default () => ({
   // AUTHENTICATION & LOGIN
   // ============================================================================
   "login": "Login",
+  "loginWithOAuth": "Login with OAuth",
   "service": "Hosting Provider",
   "identifier": "Email or Handle or DID",
   "password": "Password or App password",
