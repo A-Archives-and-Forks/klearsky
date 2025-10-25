@@ -2,7 +2,9 @@ interface TIAtpWrapper {
   agent: null | import("@atproto/api/dist/atp-agent").AtpAgent
   proxies: { [k: string]: undefined | string }
   data: { did: string; sessions: { [did: string]: TTSession } }
+  currentAuthType?: TTAuthType
   session?: TTSession
+  oauthSession?: OAuthSession
   canLogin
     (): boolean
   createActivitySubscription

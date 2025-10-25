@@ -21,7 +21,7 @@ function close () {
 async function newLogin () {
   close()
   mainState.loaderDisplay = true
-  mainState.atp.logout()
+  await mainState.atp.logout()
   await router.push({ name: "home" })
   location.reload()
   mainState.loaderDisplay = false
@@ -35,7 +35,7 @@ async function logout () {
     mainState.openErrorPopup(response, "AccountPopup/logout")
     await Util.waitProp(() => mainState.errorPopupProps.display, false)
   }
-  mainState.atp.logout()
+  await mainState.atp.logout()
   await router.push({ name: "home" })
   location.reload()
   mainState.loaderDisplay = false

@@ -740,9 +740,11 @@ function clearUpdateJwtInterval () {
 
 async function setupUpdateJwtInterval () {
   clearUpdateJwtInterval()
-  updateJwtTimer = setInterval(() => {
-    state.atp.updateJwt(onRefreshSession)
-  }, CONSTS.INTERVAL_OF_UPDATE_JWT)
+  if (state.atp.currentAuthType === "password") {
+    updateJwtTimer = setInterval(() => {
+      state.atp.updateJwt(onRefreshSession)
+    }, CONSTS.INTERVAL_OF_UPDATE_JWT)
+  }
 }
 
 async function setupNotificationInterval () {

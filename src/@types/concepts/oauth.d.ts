@@ -1,0 +1,1 @@
+type TTAuthType = "password" | "oauth"

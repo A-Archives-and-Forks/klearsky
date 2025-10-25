@@ -39,6 +39,8 @@ export default async function (
       return responseOfResetSession
     }
 
+    this.currentAuthType = "password"
+
   // 新規ログイン
   } else {
     if (this.agent == null) {
@@ -63,6 +65,8 @@ export default async function (
       // 通常エラー
       return Error("getSessionError")
     }
+
+    this.currentAuthType = "password"
 
     // ここで persistSession が入る
   }

@@ -34,10 +34,6 @@ export const state: MainState = reactive<MainState>({
   updatePageTitle: () => {}, // updatePageTitle, // TODO:
   attachFilesToPost,
 
-  // OAuth
-  currentAuthType: undefined,
-  oauthSession: undefined,
-
   // MyWorker
   myWorker: undefined,
 

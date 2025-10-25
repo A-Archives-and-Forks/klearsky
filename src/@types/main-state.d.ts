@@ -14,10 +14,6 @@ interface MainState {
   updatePageTitle: () => void
   attachFilesToPost: (this: MainState, items: DataTransferItemList) => boolean
 
-  // OAuth
-  currentAuthType?: TTAuthType
-  oauthSession?: OAuthSession
-
   // MyWorker
   myWorker?: TIMyWorker
 

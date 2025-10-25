@@ -1,4 +1,5 @@
 import type { AtpAgent } from "@atproto/api"
+import type { OAuthSession } from "@atproto/oauth-client-browser"
 import createActivitySubscription from "@/composables/atp-wrapper/create/create-activity-subscription"
 import createActorStatus from "@/composables/atp-wrapper/create/create-actor-status"
 import createAgent from "@/composables/atp-wrapper/create/create-agent"
@@ -150,7 +151,11 @@ class AtpWrapper implements TIAtpWrapper {
 
   data: { did: string; sessions: { [did: string]: TTSession } }
 
+  currentAuthType?: TTAuthType
+
   session?: TTSession
+
+  oauthSession?: OAuthSession
 
   constructor () {
     this.agent = null
@@ -162,7 +167,9 @@ class AtpWrapper implements TIAtpWrapper {
       did: "",
       sessions: {},
     }
+    this.currentAuthType = undefined
     this.session = undefined
+    this.oauthSession = undefined
 
     // 不正なアカウントデータの修復
     // TODO: このような処理が不要になるように再実装すること
