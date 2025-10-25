@@ -77,6 +77,7 @@ import VerifiedAccountsPopup from "@/components/next/Verification/VerifiedAccoun
 import VerifiersPopup from "@/components/next/Verification/VerifiersPopup.vue"
 import WordMutePopup from "@/components/next/WordMute/WordMutePopup.vue"
 import { state } from "@/composables/main-state"
+import { getOAuthClient } from "@/composables/oauth-client"
 import Util from "@/composables/util"
 import CONSTS from "@/consts/consts.json"
 import { PROFILE_ERRORS } from "@/consts/errors.json"
@@ -285,6 +286,26 @@ async function manualLogin (
   state.loaderDisplay = true
   await processAfterLogin()
   state.loaderDisplay = false
+}
+
+async function oauthLogin () {
+  state.loaderDisplay = true
+  const client = await getOAuthClient()
+  if (client instanceof Error) {
+    state.openErrorPopup(client, "MainView/oauthLogin")
+    state.loaderDisplay = false
+    return
+  }
+  try {
+    await client.signIn(window.location.origin + "/oauth/callback", {
+      state: "",
+      prompt: "login",
+    })
+  } catch (error) {
+    const err = error instanceof Error ? error : new Error(String(error))
+    state.openErrorPopup(err, "MainView/oauthLogin")
+    state.loaderDisplay = false
+  }
 }
 
 function onRefreshSession () {
@@ -1498,6 +1519,7 @@ function changeSetting () {
           ref="loginPopup"
           @signUp="signUp as unknown"
           @login="manualLogin as unknown"
+          @oauthLogin="oauthLogin"
         />
       </Transition>
 

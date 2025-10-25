@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from "vue-router"
 import NotFoundView from "@/views/NotFoundView.vue"
+import OAuthCallbackView from "@/views/OAuthCallbackView.vue"
 
 // Main
 import MainView from "@/views/MainView.vue"
@@ -49,6 +50,11 @@ const router = createRouter({
   },
 
   routes: [
+    {
+      path: "/oauth/callback",
+      name: "oauth-callback",
+      component: OAuthCallbackView,
+    },
     {
       path: "/",
       name: "main",
