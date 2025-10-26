@@ -10,6 +10,7 @@ export async function getOAuthClient (): Promise<BrowserOAuthClient | Error> {
     const clientMetadataUrl = getClientMetadataUrl()
     oauthClient = await BrowserOAuthClient.load({
       clientId: clientMetadataUrl,
+      handleResolver: "https://bsky.social",
     })
     return oauthClient
   } catch (error) {
