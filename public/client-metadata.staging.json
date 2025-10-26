@@ -5,10 +5,7 @@
   "logo_uri": "https://staging.klearsky.pages.dev/favicon.svg",
   "tos_uri": "https://staging.klearsky.pages.dev/",
   "policy_uri": "https://staging.klearsky.pages.dev/",
-  "redirect_uris": [
-    "https://staging.klearsky.pages.dev/#/oauth/callback",
-    "http://localhost:5173/#/oauth/callback"
-  ],
+  "redirect_uris": [ "https://staging.klearsky.pages.dev/#/oauth/callback" ],
   "scope": "atproto transition:generic",
   "grant_types": [
     "authorization_code",
