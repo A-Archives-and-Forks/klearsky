@@ -6,7 +6,7 @@
   "tos_uri": "https://staging.klearsky.pages.dev/",
   "policy_uri": "https://staging.klearsky.pages.dev/",
   "redirect_uris": [
-    "https://staging.klearsky.pages.dev/#/oauth/callback"
+    "https://staging.klearsky.pages.dev/"
   ],
   "scope": "atproto transition:generic",
   "grant_types": [

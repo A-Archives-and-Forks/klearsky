@@ -117,6 +117,10 @@ onMounted(async () => {
   state.settings = Util.loadStorage("settings") ?? {}
   state.updateAtprotoProxy(state.settings[state.atp.data.did]?.atprotoProxyAppBsky)
   state.loaderDisplay = true
+  const isOAuthCallback = await handleOAuthCallback()
+  if (isOAuthCallback) {
+    return
+  }
   await autoLogin()
   state.loaderDisplay = false
   state.updatePageTitle()
@@ -305,6 +309,30 @@ async function oauthLogin () {
     const err = error instanceof Error ? error : new Error(String(error))
     state.openErrorPopup(err, "MainView/oauthLogin")
     state.loaderDisplay = false
+  }
+}
+
+async function handleOAuthCallback (): Promise<boolean> {
+  const params = new URLSearchParams(window.location.search)
+  if (!params.has("state") || !params.has("code")) {
+    return false
+  }
+  try {
+    const client = await getOAuthClient()
+    if (client instanceof Error) {
+      state.openErrorPopup(client, "MainView/handleOAuthCallback")
+      return false
+    }
+    const oauthSession = await client.callback(params)
+    state.atp.oauthSession = oauthSession
+    state.atp.currentAuthType = "oauth"
+    window.history.replaceState({}, "", window.location.pathname + window.location.hash)
+    location.reload()
+    return true
+  } catch (error) {
+    const err = error instanceof Error ? error : new Error(String(error))
+    state.openErrorPopup(err, "MainView/handleOAuthCallback")
+    return false
   }
 }
 
