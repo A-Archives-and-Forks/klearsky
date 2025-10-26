@@ -297,7 +297,7 @@ async function oauthLogin () {
     return
   }
   try {
-    await client.signIn(window.location.origin + "/oauth/callback", {
+    await client.signIn("mimonelu.net", {
       state: "",
       prompt: "login",
     })

@@ -1,0 +1,6 @@
+{
+  "resource": "https://staging.klearsky.pages.dev",
+  "authorization_servers": [
+    "https://bsky.social"
+  ]
+}
