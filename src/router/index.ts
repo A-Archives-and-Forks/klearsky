@@ -231,4 +231,23 @@ const router = createRouter({
   ],
 })
 
+router.beforeEach((to, _from, next) => {
+  if (to.query.state && to.query.code) {
+    next()
+    return
+  }
+  const hash = window.location.hash
+  if (hash.includes("/state=") && hash.includes("code=")) {
+    const queryString = hash.substring(2).replace(/%26/g, "&")
+    const params = new URLSearchParams(queryString)
+    const query: Record<string, string> = {}
+    params.forEach((value, key) => {
+      query[key] = value
+    })
+    next({ name: "home", query, replace: true })
+    return
+  }
+  next()
+})
+
 export default router

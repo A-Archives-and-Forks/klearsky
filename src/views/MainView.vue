@@ -313,8 +313,8 @@ async function oauthLogin () {
 }
 
 async function handleOAuthCallback (): Promise<boolean> {
-  const params = new URLSearchParams(window.location.search)
-  if (!params.has("state") || !params.has("code")) {
+  const query = router.currentRoute.value.query
+  if (!query.state || !query.code) {
     return false
   }
   try {
@@ -323,10 +323,16 @@ async function handleOAuthCallback (): Promise<boolean> {
       state.openErrorPopup(client, "MainView/handleOAuthCallback")
       return false
     }
+    const params = new URLSearchParams()
+    Object.entries(query).forEach(([key, value]) => {
+      if (typeof value === "string") {
+        params.set(key, value)
+      }
+    })
     const oauthSession = await client.callback(params)
     state.atp.oauthSession = oauthSession
     state.atp.currentAuthType = "oauth"
-    window.history.replaceState({}, "", window.location.pathname + window.location.hash)
+    await router.replace({ path: "/" })
     location.reload()
     return true
   } catch (error) {
